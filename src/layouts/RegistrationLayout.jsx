@@ -14,7 +14,6 @@ const RegistrationLayout = () => {
       setSearchParams({ type: "signup" });
     }
   }, [datatype, setSearchParams]);
-  console.log(datatype);
   return (
     <div>
       <div className="text flex bg-slate-50 min-h-screen">

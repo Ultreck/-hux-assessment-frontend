@@ -119,7 +119,7 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
                         <Input
                           placeholder="first name"
                           {...field}
-                          className=""
+                           className=" h-16"
                         />
                       </FormControl>
                       <FormMessage />
@@ -137,7 +137,7 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
                         <Input
                           placeholder="last name"
                           {...field}
-                          className=""
+                         className=" h-16"
                         />
                       </FormControl>
                       <FormMessage />
@@ -155,7 +155,7 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
                         <Input
                           placeholder="phone number"
                           {...field}
-                          className=""
+                          className=" h-16"
                         />
                       </FormControl>
                       <FormMessage />
@@ -163,12 +163,12 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
                   )}
                 />
                 {mode === "add"? 
-                <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                <Button className={`w-full h-16  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
                 {isLoading? "Submitting..." : "Submit"}
 
               </Button>
                 :
-                <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                <Button className={`w-full h-16  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
                 {isLoading? "Updating..." : "Update"}
 
               </Button>

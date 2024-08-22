@@ -17,6 +17,7 @@ import httpClient from '../http/httpClient';
 import { BiLogoGmail } from "react-icons/bi";
 import { RiContactsFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa6";
+import { RiContactsLine } from "react-icons/ri";
 
 
 
@@ -51,6 +52,14 @@ const ContactDetailsDialog = ({mode, hoverValue, value}) => {
         className="min-w-[666px] bg-[#FBFBFB] flex flex-col p-10 py-40"
         >
         <SheetHeader>
+        <div className="flex items-center absolute top-5">
+          <div className="text w-14 h-14 rounded-full bg-sky-500  flex justify-center items-center text-white font-semibold text-xl lg:text-3xl">
+            <RiContactsLine />
+          </div>
+          <div className="text-sky-500 font-extrabold text-xl lg:text-3xl mx-4">
+            Huxlog
+          </div>
+        </div>
         </SheetHeader>
         <div className="grid gap-4 p-6 w-full bg-sky-100 rounded-xl">
          <h1 className="text font-semibold text-2xl">Contact details</h1>

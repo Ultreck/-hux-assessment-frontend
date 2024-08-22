@@ -44,7 +44,7 @@ const ContactListPage = ({ data }) => {
         <table className="w-full table-fixed">
           <thead>
             <tr className="flex justify-between  px-10">
-              <th className="text-left py-2 w-[30%]">Name</th>
+              <th className="text-left py-2 w-[30%] ml-10">Name</th>
               <th className="text-left py-2 w-[30%]">Email</th>
               <th className="text-left py-2 w-[30%]">Phone number</th>
               <th className="text-left py-2 w-[9%]">Actions</th>
@@ -70,7 +70,8 @@ const ContactListPage = ({ data }) => {
                   }}
                   className="flex justify-between px-5 py-3 hover:bg-sky-50 hover:font-semibold"
                 >
-                  <td className="py-2 px-3 w-w-[30%]">
+                  <td className="py-2 px-3 w-w-[30%] flex items-center gap-2">
+                    <div className="text w-8 h-8 bg-sky-400 rounded-full flex items-center justify-center text-white">{value.firstName.slice(0, 1)}</div>
                     {value.firstName + " " + value.lastName}
                   </td>
                   <td className="py-2 px-3 w-w-[30%]">{value.email}</td>
