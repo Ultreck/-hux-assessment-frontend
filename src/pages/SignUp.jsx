@@ -3,7 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../components/shdcn/ui/ui/input";
 import { Button } from "../components/shdcn/ui/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -25,6 +25,7 @@ const formSchema = z.object({
 });
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const form = useForm({
@@ -36,12 +37,14 @@ const SignUp = () => {
   });
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     httpClient
-      .post(`/auth/register`, data)
-      .then((response) => {
-        console.log(response);
-        
-        if (response.data.isSuccess) {
+    .post(`/auth/register`, data)
+    .then((response) => {
+      console.log(response);
+      
+      if (response.data.isSuccess) {
+          setIsLoading(false);
           dispatch(login(response.data.data));
           dispatch(setUser(response?.data?.data));
           localStorage.setItem("token", response.data.token);
@@ -99,8 +102,9 @@ const SignUp = () => {
                   </FormItem>
                 )}
               />
-              <Button className="w-full bg-sky-500" type="submit" variant="">
-                Register
+              <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                {isLoading? "Registering..." : "Register"}
+
               </Button>
             </form>
           </Form>

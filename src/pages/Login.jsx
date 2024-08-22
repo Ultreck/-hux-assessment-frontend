@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +24,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const form = useForm({
@@ -35,11 +36,13 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     console.log(data);
     httpClient
-      .post(`/auth/login`, data)
-      .then((response) => {
-        if (response.data.isSuccess) {
+    .post(`/auth/login`, data)
+    .then((response) => {
+      if (response.data.isSuccess) {
+          setIsLoading(false);
           dispatch(login(response.data.data));
           dispatch(setUser(response?.data?.data));
           localStorage.setItem("token", response.data.token);
@@ -95,8 +98,9 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              <Button className="w-full bg-sky-500" type="submit" variant="">
-                Login
+              
+              <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                {isLoading? "Logging in..." : "Login"}
               </Button>
             </form>
           </Form>

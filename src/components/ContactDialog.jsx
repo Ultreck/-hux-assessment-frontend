@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 import {
@@ -36,6 +36,7 @@ const formSchema = z.object({
 
 const ContactDialog = ({ mode, hoverValue, value }) => {
   const state = useSelector((state) => state.user.user);
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,19 +56,18 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
   }, [mode]);
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     const payload = { ...data, email: state.email, userId: state._id };
     const urlDeterminant =
-      mode === "edit"
-        ? httpClient.put(`/edit-contact`, {payload, id:value._id})
-        : httpClient.post(`/create-contact`, payload);
-
+    mode === "edit"
+    ? httpClient.put(`/edit-contact`, {payload, id:value._id})
+    : httpClient.post(`/create-contact`, payload);
+    
     urlDeterminant
-      .then((response) => {
+    .then((response) => {
         console.log(response.data.message);
-        if(response.data.isSucces){
-            toast.success(response.data.message);
-
-        }
+        setIsLoading(false);
+        toast.success(response.data.message);
         window.location.reload();
       })
       .catch((error) => {
@@ -162,9 +162,17 @@ const ContactDialog = ({ mode, hoverValue, value }) => {
                     </FormItem>
                   )}
                 />
-                <Button className="w-full bg-sky-500" type="submit" variant="">
-                  Submit
-                </Button>
+                {mode === "add"? 
+                <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                {isLoading? "Submitting..." : "Submit"}
+
+              </Button>
+                :
+                <Button className={`w-full  ${isLoading? "bg-sky-400": "bg-sky-500"}`} type="submit" variant="">
+                {isLoading? "Updating..." : "Update"}
+
+              </Button>
+                }
               </form>
             </Form>
             {/* <DialogDescription>
